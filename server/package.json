@@ -1,0 +1,25 @@
+{
+  "dependencies": {
+    "@fastify/cors": "^8.2.1",
+    "@fastify/mysql": "^4.1.0",
+    "@prisma/client": "^4.11.0",
+    "dotenv": "^16.0.3",
+    "fastify": "^4.15.0",
+    "prisma": "^4.11.0"
+  },
+  "name": "server",
+  "version": "1.0.0",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "nodemon index.js --trace-warnings",
+    "db_pull": "npx prisma db pull",
+    "db_push": "npx prisma db push",
+    "db_generate": "npx prisma generate",
+    "db_reset": "npx prisma migrate reset"
+  },
+  "author": "",
+  "license": "ISC",
+  "description": ""
+}
