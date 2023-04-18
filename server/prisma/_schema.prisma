@@ -7,24 +7,6 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model refresh_token {
-  id          Int    @id @default(autoincrement())
-  tokenString String @default("0") @db.VarChar(256)
-  userId      Int    @unique(map: "userId") @default(0)
-  users       users  @relation(fields: [userId], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "FK__users")
-
-  @@index([userId], map: "user_id")
-}
-
-model roles {
-  id      Int     @id @default(autoincrement())
-  name    String  @default("0") @db.VarChar(50)
-  mask    Int     @default(0)
-  version Int     @default(0)
-  Test    Int?
-  users   users[]
-}
-
 model tasks {
   id      Int    @id @default(autoincrement())
   task    String @default("0") @db.VarChar(50)
@@ -48,4 +30,21 @@ model users {
   roles         roles?         @relation(fields: [roleId], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "FK_users_roles")
 
   @@index([roleId], map: "permissionId")
+}
+
+model refresh_token {
+  id          Int    @id @default(autoincrement())
+  tokenString String @default("0") @db.VarChar(256)
+  userId      Int    @unique(map: "userId") @default(0)
+  users       users  @relation(fields: [userId], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "FK__users")
+
+  @@index([userId], map: "user_id")
+}
+
+model roles {
+  id      Int     @id @default(autoincrement())
+  name    String  @default("0") @db.VarChar(50)
+  mask    Int     @default(0)
+  version Int     @default(0)
+  users   users[]
 }

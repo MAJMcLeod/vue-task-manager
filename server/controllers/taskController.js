@@ -1,6 +1,6 @@
 import * as taskService from "../services/taskService.js";
 
-const getAllUsers = async (req, reply) => {
+const getAllTasks = async (req, reply) => {
   try {
     return await taskService.handleGetTasks();
   } catch (error) {
@@ -8,16 +8,25 @@ const getAllUsers = async (req, reply) => {
   }
 };
 
-const addUser = async (req, reply) => {
-  const { task, endDate, status } = req.body;
+const getTaskById = async (req, reply) => {
+  const id = parseInt(req.params.id);
   try {
-    return await taskService.handleAddTask(task, endDate, status);
+    return await taskService.handleGetTaskById(id);
   } catch (error) {
     return error;
   }
 };
 
-const deleteUser = async (req, reply) => {
+const addTask = async (req, reply) => {
+  const { task, endDate, status, userid } = req.body;
+  try {
+    return await taskService.handleAddTask(task, endDate, status, userid);
+  } catch (error) {
+    return error;
+  }
+};
+
+const deleteTask = async (req, reply) => {
   const id = parseInt(req.params.id);
   try {
     return await taskService.handleDeleteTask(id);
@@ -26,14 +35,23 @@ const deleteUser = async (req, reply) => {
   }
 };
 
-const editUser = async (req, reply) => {
+const editTask = async (req, reply) => {
   const id = parseInt(req.params.id);
-  const { task, endDate, status } = req.body;
+  const { task, endDate, status, userid } = req.body;
   try {
-    return await taskService.handleEditTask(id, task, endDate, status);
+    return await taskService.handleEditTask(id, task, endDate, status, userid);
   } catch (error) {
     return error;
   }
 };
 
-export { getAllUsers, editUser, addUser, deleteUser };
+const getTasksByUserId = async (req, reply) => {
+  const userid = parseInt(req.params.userid);
+  try {
+    return await taskService.handleGetTasksByUserId(userid);
+  } catch (error) {
+    return error;
+  }
+};
+
+export { getAllTasks, editTask, addTask, deleteTask, getTaskById, getTasksByUserId };

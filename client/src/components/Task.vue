@@ -4,7 +4,7 @@ export default {
     return {
       isEdit: false,
       isHidden: false,
-      updatedTask: {task:this.task.task, endDate:this.task.endDate, status:this.task.status}
+      updatedTask: {task:this.task.task, endDate:this.task.endDate, status:this.task.status, userid:this.$store.state.auth.userDetails.id}
     };
   },
   props: ["task", "deleteTask", "taskId", "updateTask"],

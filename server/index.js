@@ -4,21 +4,31 @@ dotenv.config();
 //Import fastify
 import Fastify from "fastify";
 import fastifyMySQL from "@fastify/mysql";
+import fastifyCookie from "@fastify/cookie";
 import cors from "@fastify/cors";
 
 //Import routes
-import taskRoutes from './routes/tasks.js';
+import taskRoutes from "./routes/tasks.js";
+import userRoutes from "./routes/users.js";
+import authRoutes from "./routes/auth.js";
 
 const fastify = Fastify();
-await fastify.register(cors, {});
+await fastify.register(cors, {
+  credentials: true,
+  origin: ["http://localhost:5173"],
+  exposedHeaders: ['Access-Token'],
+});
 
 fastify.register(fastifyMySQL, {
   promise: true,
   connectionString: process.env.DB_URL,
 });
 
-fastify.register(taskRoutes)
+fastify.register(fastifyCookie, {});
 
+fastify.register(taskRoutes);
+fastify.register(userRoutes);
+fastify.register(authRoutes);
 
 const start = async () => {
   try {

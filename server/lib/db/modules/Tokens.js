@@ -2,17 +2,17 @@ import prisma from "../../../prisma/index.js";
 
 //Will check if user already has a refresh token and either create an entry or update the already existing one
 const upsertRefreshToken = async (userId, refreshToken) => {
-    //LOVELEYYYY
-  return await prisma.refresh_token.upsert({
+  //LOVELEYYYY
+  await prisma.refresh_token.upsert({
     where: {
-      user_id: userId,
+      userId: userId
     },
     update: {
-      token_string: refreshToken,
+      tokenString: refreshToken
     },
     create: {
-      user_id: userId,
-      token_string: refreshToken,
+      userId: userId,
+      tokenString: refreshToken
     },
   });
 };
@@ -20,11 +20,9 @@ const upsertRefreshToken = async (userId, refreshToken) => {
 const findRefreshToken = async (refreshToken) => {
   return await prisma.refresh_token.findFirst({
     where: {
-      token_string: refreshToken,
-    }
+      tokenString: refreshToken,
+    },
   });
 };
-
-
 
 export { upsertRefreshToken, findRefreshToken };

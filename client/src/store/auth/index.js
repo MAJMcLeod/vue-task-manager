@@ -4,7 +4,8 @@ export default{
     // Declaring state
     state:{
         userDetails: null,
-        isAuthenticated: false
+        isAuthenticated: false,
+        accessToken: null
     },
     // Declaring getters to access state
     getters: {
@@ -13,6 +14,9 @@ export default{
         },
         getIsAuthenticated: state => {
             return state.isAuthenticated;
+        },
+        getAccessToken: state => {
+            return state.accessToken;
         }
     },
     // Declaring mutators to update state
@@ -22,6 +26,9 @@ export default{
         },
         setIsAuthenticated(state, data){
             state.isAuthenticated = data;
+        },
+        setAccessToken(state, data){
+            state.accessToken = data;
         },
     },
 }

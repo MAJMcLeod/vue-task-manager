@@ -12,16 +12,25 @@ const handleVerifyUserCredentials = async (email, loginPwd) => {
 
   if (user === null || user.password !== loginPwd) {
     throw new Error("Email or password invalid");
-  } else {
-    // Use sanitized info to generate 2 new tokens
-    const accessToken = Jwt.sign(safeUserData, process.env.JWT_SECRET_KEY, {expiresIn: serverConfig.accessTokenDuration});
-    const refreshToken = Jwt.sign(safeUserData, process.env.JWT_REFRESH_SECRET_KEY, {expiresIn: serverConfig.refreshTokenDuration});
-
-    const pushRefreshToken = db.tokens.upsertRefreshToken(safeUserData.id, refreshToken);
-
-    return {safeUserData, accessToken, refreshToken};
   }
-  // Really basic login function just to get frontend working
+
+  // Use sanitized info to generate 2 new tokens
+  const accessToken = Jwt.sign(safeUserData, process.env.JWT_SECRET_KEY, {
+    expiresIn: serverConfig.accessTokenDuration,
+  });
+  const refreshToken = Jwt.sign(
+    safeUserData,
+    process.env.JWT_REFRESH_SECRET_KEY,
+    { expiresIn: serverConfig.refreshTokenDuration }
+  );
+
+  await db.tokens.upsertRefreshToken(
+    safeUserData.id,
+    refreshToken
+  );
+
+  return { safeUserData, accessToken, refreshToken };
 };
+// Really basic login function just to get frontend working
 
 export { handleVerifyUserCredentials };

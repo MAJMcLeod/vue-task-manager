@@ -1,12 +1,11 @@
 <script>
-import axios from "axios";
 export default {
   name: "Login",
   methods: {
     async login() {
       try {
         // Check if user details are valid
-        const { data } = await axios.post(
+        const { data, headers } = await this.$api.post(
           "http://localhost:3000/login",
           this.loginDetails
         );
@@ -15,6 +14,7 @@ export default {
         // If user details are valid, change global state, log in
         this.$store.commit("auth/setUserDetails", this.user);
         this.$store.commit("auth/setIsAuthenticated", true);
+
         this.$router.push({ path: "/" });
       } catch (error) {
         // If credentials are invalid fail and reflect on frontend

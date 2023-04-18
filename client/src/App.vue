@@ -1,8 +1,11 @@
 <script setup>
 import NavBar from "./components/NavBar.vue";
 import TaskView from "./components/TaskView.vue";
+import LoginScreen from "./components/LoginScreen.vue";
 </script>
 
 <template>
-    <TaskView class="col-span-5" />
+  <div class="h-full">
+    <RouterView/>
+  </div>
 </template>

@@ -5,8 +5,13 @@ const handleGetTasks = async () => {
   return tasks;
 };
 
-const handleAddTask = async (task, endDate, status) => {
-  const tasks = await db.tasks.addTask(task, endDate, status);
+const handleGetTaskById = async (id) => {
+  const tasks = await db.tasks.getTaskById(id);
+  return tasks;
+};
+
+const handleAddTask = async (task, endDate, status, userid) => {
+  const tasks = await db.tasks.addTask(task, endDate, status, userid);
   return tasks;
 };
 
@@ -15,9 +20,14 @@ const handleDeleteTask = async (id) => {
   return tasks;
 };
 
-const handleEditTask = async (id, task, endDate, status) => {
-  const tasks = await db.tasks.deleteTask(id, task, endDate, status);
+const handleEditTask = async (id, task, endDate, status, userid) => {
+  const tasks = await db.tasks.editTask(id, task, endDate, status, userid);
   return tasks;
 };
 
-export { handleAddTask, handleDeleteTask, handleEditTask, handleGetTasks };
+const handleGetTasksByUserId = async (userid) => {
+  const tasks = await db.tasks.getTasksByUserId(userid);
+  return tasks;
+};
+
+export { handleAddTask, handleDeleteTask, handleEditTask, handleGetTasks, handleGetTaskById, handleGetTasksByUserId };
